@@ -1,0 +1,25 @@
+APIs Web : Son librerias/plugins/subprogramas que vienen instalados en el mismo navegador. Complementan al lenguaje JS. 
+https://developer.mozilla.org/en-US/docs/Web/API/Console_API
+
+
+NodeJS: Es un entorno para correr js fuera del navegador
+https://nodejs.org/en
+
+Modulos Nativos de NodeJS : Son analogos a las APIs WEB de un navegador
+https://nodejs.org/docs/latest/api/
+https://nodejs.org/docs/latest/api/console.html#consolelogdata-args
+
+
+Entorno : Es el programa en donde se ejecutan archivos
+
+
+https://www.youtube.com/watch?v=PMfcsYzj-9M&list=PLRS3oq8XiJ-VvCvvHVtAel-FXfDq_afN_
+
+
+
+NPM : Node Package Manager
+
+"Competencia" de NPM : 
+https://bun.com/
+https://pnpm.io/
+https://yarnpkg.com/
