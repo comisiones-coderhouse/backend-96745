@@ -1,11 +1,25 @@
-//const Usuario = require("./Usuario.js")
-import Usuario from "./Usuario.js"
+//import http from "http"
+import express from "express"
 
-//import path from "path"
-//const resultado = path.join("carpeta1", "carpeta2", "archivo.txt")
+console.log("Booting up server, please wait...")
 
-const usuario_uno = new Usuario("Horacio", "horacio@ejemplo.com", "123456");
+//const mi_servidor = http.createServer()
+//const mi_servidor = new Express()
+const mi_servidor = express()
 
-const resultado_de_saludar = usuario_uno.saludar()
+//Creacion de end point nuevo : 
+//if(req.url === "" && req.method == "") {...}
+//Express.method(URL,callback)
+mi_servidor.get("/", (req, res) => {
+    res.send("Hola Mundo")
+})
 
-console.log("🚀 ~ resultado_de_saludar:", resultado_de_saludar)
+mi_servidor.get("/usuarios", (req, res) => {
+    res.send([{ id: 1, nombre: "Horacio" }, { id: 2, nombre: "Santiago" }])
+})
+
+
+//mi_servidor.listen(PORT,callback)
+mi_servidor.listen(3000, () => {
+    console.log("Server up and running!")
+})

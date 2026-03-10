@@ -1,12 +1,24 @@
 {
   "name": "mi-proyecto",
   "version": "1.0.0",
-  "description": "Demo servidor backend con Node.js",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Horacio Gutierrez",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/comisiones-coderhouse/backend-96745.git"
+  },
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "type" : "module"
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/comisiones-coderhouse/backend-96745/issues"
+  },
+  "homepage": "https://github.com/comisiones-coderhouse/backend-96745#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
