@@ -1,24 +1,61 @@
-//import http from "http"
 import express from "express"
+import { fileURLToPath } from 'url';
+import path from 'path'
+import { engine } from 'express-handlebars'
 
-console.log("Booting up server, please wait...")
 
-//const mi_servidor = http.createServer()
-//const mi_servidor = new Express()
+//Inicializaciones
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const mi_servidor = express()
 
-//Creacion de end point nuevo : 
-//if(req.url === "" && req.method == "") {...}
-//Express.method(URL,callback)
+
+//Middleware
+// middleware ----->  aca pasa algo  ----> callback
+/* 
+Express.use(function(req,res,next){
+
+    next()
+})
+*/
+/* mi_servidor.use(function(req,res,next){
+    console.log("Pase por el middleware")
+    next()
+}) */
+mi_servidor.use(express.static("public"))
+mi_servidor.use(express.json())
+
+//Configuraciones
+mi_servidor.engine('handlebars', engine());
+mi_servidor.set('view engine', 'handlebars');
+
+
+const usuarios = [
+    { id: 1, nombre: "Horacio" }, 
+    { id: 2, nombre: "Santiago" }
+]
+
+
+//Rutas
 mi_servidor.get("/", (req, res) => {
-    res.send("Hola Mundo")
+    res.render("index")
+})
+
+mi_servidor.get("/productos", (req, res) => {
+    res.render("productos")
 })
 
 mi_servidor.get("/usuarios", (req, res) => {
-    res.send([{ id: 1, nombre: "Horacio" }, { id: 2, nombre: "Santiago" }])
+    res.send(usuarios)
 })
 
+mi_servidor.post("/usuarios", (req, res) => {
+    //console.log(req.body)
+    usuarios.push(req.body)
+    res.send("OK")
+})
 
+//Apertura de puertos + conexion a DB
 //mi_servidor.listen(PORT,callback)
 mi_servidor.listen(3000, () => {
     console.log("Server up and running!")
