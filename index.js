@@ -1,58 +1,59 @@
 import express from "express"
-import { fileURLToPath } from 'url';
-import path from 'path'
 import { engine } from 'express-handlebars'
-
+import { createServer } from "http";
+import { Server } from "socket.io";
 
 //Inicializaciones
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const mi_servidor = express()
+//mi_servidor es la instancia del servidor Express
+const mi_aplicacion = express()
+// http://localhost:3000
+const mi_servidor = createServer(mi_aplicacion)
+// ws://localhost:3000
+const io_servidor = new Server(mi_servidor)
 
 
 //Middleware
-// middleware ----->  aca pasa algo  ----> callback
-/* 
-Express.use(function(req,res,next){
+//con esto podemos apuntar todos los pedidos del servidor que NO COINCIDAN con las rutas a la carpeta public
+mi_aplicacion.use(express.static("public"))
+//con esto podemos recibir objetos JSON desde el frontend (en el body de la petición)
+mi_aplicacion.use(express.json())
 
-    next()
-})
-*/
-/* mi_servidor.use(function(req,res,next){
-    console.log("Pase por el middleware")
-    next()
-}) */
-mi_servidor.use(express.static("public"))
-mi_servidor.use(express.json())
-
-//Configuraciones
-mi_servidor.engine('handlebars', engine());
-mi_servidor.set('view engine', 'handlebars');
+//Configuraciones (para el frontend (html))
+//con esto le decimos a Express qué cosa es "handlebars"
+mi_aplicacion.engine('handlebars', engine());
+//con esto le decimos a Express que use Handlebars como motor de plantillas
+mi_aplicacion.set('view engine', 'handlebars');
 
 
 const usuarios = [
-    { id: 1, nombre: "Horacio" }, 
+    { id: 1, nombre: "Horacio" },
     { id: 2, nombre: "Santiago" }
 ]
 
-
 //Rutas
-mi_servidor.get("/", (req, res) => {
+mi_aplicacion.get("/", (req, res) => {
     res.render("index")
 })
 
-mi_servidor.get("/productos", (req, res) => {
+mi_aplicacion.get("/productos", (req, res) => {
     res.render("productos")
 })
 
-mi_servidor.get("/usuarios", (req, res) => {
+mi_aplicacion.get("/usuarios", (req, res) => {
     res.send(usuarios)
 })
 
-mi_servidor.post("/usuarios", (req, res) => {
+mi_aplicacion.post("/usuarios", (req, res) => {
     //console.log(req.body)
     usuarios.push(req.body)
     res.send("OK")
+})
+
+
+//io_servidor.addEventListener()
+//io_servidor.addListener()
+io_servidor.on("connection", (req) => { 
+    console.log("Nuevo cliente conectado")
 })
 
 //Apertura de puertos + conexion a DB

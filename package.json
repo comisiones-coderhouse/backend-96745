@@ -20,6 +20,7 @@
   "homepage": "https://github.com/comisiones-coderhouse/backend-96745#readme",
   "dependencies": {
     "express": "^5.2.1",
-    "express-handlebars": "^8.0.1"
+    "express-handlebars": "^8.0.1",
+    "socket.io": "^4.8.3"
   }
 }
