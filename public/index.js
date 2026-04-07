@@ -30,6 +30,3 @@ userForm.addEventListener("submit", (e) => {
         body: usuarioEnString
     })
 })
-
-//esto inicia una conexion con un servidor de web socket en la direccion : ws://localhost:3000
-const socket = io()

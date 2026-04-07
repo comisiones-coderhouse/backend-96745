@@ -1,7 +1,10 @@
 import express from "express"
 import { engine } from 'express-handlebars'
 import { createServer } from "http";
+import mongoose from "mongoose";
 import { Server } from "socket.io";
+
+
 
 //Inicializaciones
 //mi_servidor es la instancia del servidor Express
@@ -11,6 +14,11 @@ const mi_servidor = createServer(mi_aplicacion)
 // ws://localhost:3000
 const io_servidor = new Server(mi_servidor)
 
+const userSchema = new mongoose.Schema({
+    nombre: String
+})
+
+const userModel = mongoose.model("user", userSchema)
 
 //Middleware
 //con esto podemos apuntar todos los pedidos del servidor que NO COINCIDAN con las rutas a la carpeta public
@@ -36,7 +44,14 @@ mi_aplicacion.get("/", (req, res) => {
 })
 
 mi_aplicacion.get("/productos", (req, res) => {
+
+    userModel.create({ nombre: "Horacio" })
+
     res.render("productos")
+})
+
+mi_aplicacion.get("/chat", (req, res) => {
+    res.render("chat")
 })
 
 mi_aplicacion.get("/usuarios", (req, res) => {
@@ -50,14 +65,28 @@ mi_aplicacion.post("/usuarios", (req, res) => {
 })
 
 
-//io_servidor.addEventListener()
-//io_servidor.addListener()
-io_servidor.on("connection", (req) => { 
+io_servidor.on("connection", (socket) => {
+
     console.log("Nuevo cliente conectado")
+
+    socket.on("chat-message", (data) => {
+
+        socket.broadcast.emit("chat-message-server", data)
+
+    })
 })
 
 //Apertura de puertos + conexion a DB
 //mi_servidor.listen(PORT,callback)
+//mongoose.connect("mongodb://localhost:27017")
+mongoose.connect("mongodb://127.0.0.1:27017")
+    .then(() => {
+        console.log("Conecado a DB!")
+    })
+    .catch(() => {
+        console.log("Hubo un problema")
+    })
+
 mi_servidor.listen(3000, () => {
     console.log("Server up and running!")
 })

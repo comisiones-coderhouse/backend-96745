@@ -23,3 +23,19 @@ NPM : Node Package Manager
 https://bun.com/
 https://pnpm.io/
 https://yarnpkg.com/
+
+
+No Relacional vs Relacional
+NoSQL vs SQL
+
+MongoDB (No relacional)
+
+https://www.w3schools.com/mongodb/index.php
+https://www.mongodb.com/try/download/compass
+https://www.mongodb.com/try/download/community
+
+
+Mongoose : Libreria ORM para trabajar con MongoDB
+
+Schema : Define reglas de validacion
+Modelo : Conecta el Schema con nuestro codigo
