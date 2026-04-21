@@ -39,3 +39,6 @@ Mongoose : Libreria ORM para trabajar con MongoDB
 
 Schema : Define reglas de validacion
 Modelo : Conecta el Schema con nuestro codigo
+
+- rutas con params
+- variables de entorno 
